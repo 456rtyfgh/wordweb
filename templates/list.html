@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+    {% for word in word_list %}
+    <li><a href="/word/{{word['id']}}/">{{word['english']}}</a>{{word['korean']}}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
