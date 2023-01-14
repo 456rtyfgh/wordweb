@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
@@ -9,6 +9,7 @@ words = [
     {'id':4, 'english':'bow', 'korean':'활'},
     {'id':5, 'english':' pneumonoultramicroscopicsilicovolcanoconiosis', 'korean':'폐,허파'}
 ]
+nextId = len(words) + 1
 
 @app.route('/')
 def index():
@@ -29,5 +30,31 @@ def read(id):
             break
 
     return render_template('word.html', id=id, english=english, korean=korean)
+
+@app.route('/new/')
+def create():
+    return render_template('create.html')
+
+@app.route('/create/', methods=['POST'])
+def post_create():
+    global nextId
+    english = request.form['english']
+    korean = request.form['korean']
+    newword = {'id': nextId, 'english': english, 'korean': korean}
+    words.append(newword)
+    nextId += 1
+    return redirect('/word/{}/'.format(newword['id']))
+
+@app.route('/modyfi/<int:id>/')
+def update(id):
+    english = ''
+    korean = ''
+    for word in words:
+        if id == word['id']:
+            english = word['english']
+            korean = word['korean']
+            break
+
+    return render_template('update.html', id=id, english=english, korean=korean)        
 
 app.run(debug=True)
