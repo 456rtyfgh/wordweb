@@ -3,4 +3,14 @@
 {% block content %}
 <h2>{{english}}</h2>
 <p>{{korean}}</p>
+
+<ul>
+    <li><a href="/modify/{{id}}">단어수정</a></li>
+    <li>
+        <form action="/remove/{{id}}/", method="POST">
+            <input type="submit", value="단어 삭제"/>
+        </form>
+    </li>
+</ul>
+
 {% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="/update/{{id}}" method="POST">
+    <input type="text" name="english" value="{{english}}"/>
+    <input type="text" name="korean" value="{{koraen}}"/>
+    <input type="submit" value="단어 수정">
+</form>
+{% endblock %}
